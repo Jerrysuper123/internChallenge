@@ -3,8 +3,13 @@ package oraclePackage;
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Bootstrap;
 import io.dropwizard.core.setup.Environment;
+import jakarta.servlet.DispatcherType;
 import oraclePackage.resources.getMinCoinAlgo;
 import oraclePackage.resources.getMiniCoin;
+import jakarta.servlet.FilterRegistration;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
+
+import java.util.EnumSet;
 
 public class min_coinApplication extends Application<min_coinConfiguration> {
 
@@ -30,6 +35,19 @@ public class min_coinApplication extends Application<min_coinConfiguration> {
         environment.jersey().register(new getMiniCoin());
 //        environment.jersey().register(new getMinCoinAlgo());
 //        environment.healthChecks().register();
+
+
+        //Below is to allow cors
+        final FilterRegistration.Dynamic cors =
+                environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+
+        cors.setInitParameter("allowedOrigins", "*");
+        cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin");
+        cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
+
+        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+
+        cors.setInitParameter(CrossOriginFilter.CHAIN_PREFLIGHT_PARAM, Boolean.FALSE.toString());
     }
 
 }
