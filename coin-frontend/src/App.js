@@ -84,12 +84,8 @@ function App() {
       </div>
 
       <label>
-        targetAmount:
-        <input
-          type="number"
-          name="coinDenominators"
-          onChange={onChangeSetDeno}
-        />
+        coin denominator:
+        <input type="text" name="coinDenominators" onChange={onChangeSetDeno} />
       </label>
       <p>Error msg: {denoMsg}</p>
       <div>
