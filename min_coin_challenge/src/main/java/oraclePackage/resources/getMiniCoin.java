@@ -12,6 +12,11 @@ import java.util.List;
 @Path("/hello")
 @Produces(MediaType.APPLICATION_JSON)
 public class getMiniCoin {
+
+    @GET
+    public String returnHello(){
+        return "hello world! this is a GET request. you backend is working on http://localhost:8080/hello";
+    }
     getMinCoinAlgo algo = new getMinCoinAlgo();
 
     //When created below, this will be what the body looks like when user send over as body

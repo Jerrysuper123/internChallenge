@@ -16,6 +16,7 @@ function App() {
   const [coinDemo, setCoinDemo] = React.useState([]);
   const [targetErrorMsg, setTargetErrorMsg] = React.useState("");
   const [denoMsg, setDenoMsg] = React.useState("");
+  const [serverText, setSeverText] = React.useState("");
   const onChangeSetTargetValue = (event) => {
     //TODO: target value
     //amount of money you need to make up to. Target amount must be within the range between 0 and 10,000.00
@@ -48,6 +49,21 @@ function App() {
     //cannot have number that is not within the denomiation
   };
 
+  const getHelloWordfromBE = async () => {
+    try {
+      //  `${process.env.REACT_APP_API_URL}`,does not work in build file
+      const response = await axios.get("http://localhost:8080/hello");
+      // console.log(response);
+      setSeverText(response.data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  React.useEffect(() => {
+    getHelloWordfromBE();
+  });
+
   const getCoinCom = async () => {
     if (targetErrorMsg !== "") return;
     try {
@@ -71,6 +87,9 @@ function App() {
   };
   return (
     <div className="App">
+      <h1>test env var</h1>
+      {/* regardless of file name env.development, it will alawys be process.env to access it */}
+      <p>You have connected with backend:{serverText}</p>
       <div>
         <label>
           targetAmount:
