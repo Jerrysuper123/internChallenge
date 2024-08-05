@@ -52,7 +52,7 @@ function App() {
   const getHelloWordfromBE = async () => {
     try {
       //  `${process.env.REACT_APP_API_URL}`,does not work in build file
-      const response = await axios.get("http://localhost:8080/hello");
+      const response = await axios.get("http://40.233.84.218:8080/hello");
       // console.log(response);
       setSeverText(response.data);
     } catch (e) {
@@ -68,7 +68,7 @@ function App() {
     if (targetErrorMsg !== "") return;
     try {
       const response = await axios.post(
-        "http://localhost:8080/hello",
+        "http://40.233.84.218:8080/hello",
         {
           targetAmount: targetAmount,
           coinDenominators: coinDemo,
